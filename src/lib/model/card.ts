@@ -45,7 +45,14 @@ export class Deck {
 
     drawCard = () => {
         const card = this.cards.pop()
+        if(card === undefined){
+            return null
+        }
         return card
+    }
+
+    isEmpty = () => {
+        return this.cards.length === 0
     }
 }
 
