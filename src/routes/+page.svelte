@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Label, Input, Helper, Button } from 'flowbite-svelte';
-	import type { ActionData } from './$types';
+	import type { ActionData } from './login/$types';
 	export let form: ActionData;
 </script>
 
@@ -10,8 +10,8 @@
     <Input let:props id="large-input" size="lg" placeholder="Orcname">
       <input type="text" {...props} name="username" required/>
     </Input>
-		<Label for="large-input" class="block mb-2">Passwrod</Label>
-    <Input let:props id="large-input" size="lg" placeholder="Orcname">
+		<Label for="large-input" class="block mb-2">Password</Label>
+    <Input let:props id="large-input" size="lg" placeholder="Password">
       <input type="password" {...props} name="password" required/>
     </Input>
 		{#if form?.invalid}

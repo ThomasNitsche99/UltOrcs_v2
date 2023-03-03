@@ -3,10 +3,12 @@ import { prisma } from '$lib/database'
 import { fail,redirect,  type Action, type Actions } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = async () => {
-  // todo
+export const load: PageServerLoad = async ({ locals }) => {
+  // redirect user if logged in
+  if (locals.user) {
+    throw redirect(302, '/games')
+  }
 }
-
 const login: Action = async ({ cookies, request }) => {
   const data = await request.formData()
   const username = data.get('username')

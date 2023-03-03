@@ -1,10 +1,15 @@
 import type { CardDeck, NewCardDeck } from '$lib/type/Types';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { randomCards } from '$lib/functions';
 
 //fetches card deck
-export const load: PageServerLoad = async ({ fetch, }) => {
+export const load: PageServerLoad = async ({ fetch,locals }) => {
+
+	if (!locals.user) {
+		throw redirect(302, '/')
+	}
+
 	//retrieve new deck
 	const NewCardDeckRequest = await fetch(
 		'https://www.deckofcardsapi.com/api/deck/new/draw/?count=52'
