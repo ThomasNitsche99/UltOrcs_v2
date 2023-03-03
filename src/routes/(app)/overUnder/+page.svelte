@@ -4,33 +4,40 @@
 	import { Button, Modal } from 'flowbite-svelte';
 	import { cardTranslate, judge, lastValueInDeck, nextCard } from '$lib/functions';
 	import { ArrowDownCircle } from 'svelte-heros-v2';
+	import { createDefaultDeck, makeCardImageUrl, type Card } from '$lib/model/card';
 
 	export let data: PageData;
 
 	let defaultModal = false;
 	var index = 0;
 
-	//initial Card
-	let playingCard = nextCard(data.Cards, index);
+	//getting carddeck
+	const deck = createDefaultDeck();
+	deck.shuffle();
+
+	//initial Cards
+	let playingCard = deck.drawCard();
+	let lastcard: Card | null = null;
 
 	//sets the next Card
 	function setNextCard() {
 		//increase index
 		index++;
 		//update values
-		lastValue = currentValue;
+		lastcard = playingCard;
 		//get next card
-		playingCard = nextCard(data.Cards, index);
+		playingCard = deck.drawCard();
 	}
-	//Current value (the value of the playingCard)
-	$: currentValue = cardTranslate(playingCard.value);
-	//Last value, using function
-	$: lastValue = lastValueInDeck(data.Cards, index);
+	
 	$: buttonValue = 'none';
 	$: gameFinished = false;
 
 	//reactive check for gamestatus using reactive variables
-	$: if (judge(lastValue, currentValue, buttonValue) === true) {
+	$: if (
+		playingCard !== null &&
+		lastcard !== null &&
+		judge(playingCard, lastcard, buttonValue) === true
+	) {
 		defaultModal = true;
 		gameFinished = true;
 	}
@@ -65,8 +72,10 @@
 		>
 	</div>
 	<!-- image -->
-	<div class="container flex justify-center ">
-		<Img src={playingCard.image} size="lg" class="" />
+	<div class="container flex justify-center w-3/4 ">
+		{#if playingCard !== null}
+			<Img src={makeCardImageUrl(playingCard)} size="lg" class="" />
+		{/if}
 	</div>
 
 	<!-- buttons -->
