@@ -45,7 +45,7 @@ export class Deck {
 
     drawCard = () => {
         const card = this.cards.pop()
-        if(card === undefined){
+        if (card === undefined) {
             return null
         }
         return card
@@ -65,6 +65,18 @@ export const createDefaultDeck = () => {
 
     suits.forEach(suit => {
         for (let i = 2; i <= 14; i++) {
+            deck.addCard(createCard(i, suit))
+        }
+    })
+
+    return deck
+}
+
+export const createDeckWithoutAce = () => {
+    const deck = new Deck()
+
+    suits.forEach(suit => {
+        for (let i = 2; i <= 13; i++) {
             deck.addCard(createCard(i, suit))
         }
     })
