@@ -8,15 +8,16 @@ const config = {
 		extend: {
 			colors: {
 				'reg-blue': '#1f6266',
-				'tuborg_green': '#368015'
+				'tuborg_green': '#368015',
+				'reg-red': '#FF3333'
 			},
 			backgroundImage: {
 				poker: "url('/images/bg_crop.jpg')"
 			}
 		},
 		container: {
-			center: true, 
-			padding: '15rem',
+			center: true,
+			padding: '15rem'
 		}
 	},
 
