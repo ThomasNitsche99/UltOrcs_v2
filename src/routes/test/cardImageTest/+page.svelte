@@ -10,8 +10,10 @@
 
 <div>
 	<div class="container flex justify-center ">
-		<div class="container flex justify-center ">
-			<Img src={imageUrl} size="lg" class="" />
+		<div class="container flex justify-center">
+			<div class="w-1/2">
+				<Img src={imageUrl} size="sm" class="" />
+			</div>
 		</div>
 	</div>
 </div>
