@@ -1,9 +1,9 @@
 
 export enum Suit {
-    Hearts = "H",
-    Clubs = "C",
-    Diamonds = "D",
-    Spades = "S"
+    Hearts = "hearts",
+    Clubs = "clubs",
+    Diamonds = "diamonds",
+    Spades = "spades"
 }
 
 const suits = [Suit.Hearts, Suit.Diamonds, Suit.Clubs, Suit.Spades]
@@ -78,18 +78,22 @@ export const createDeckFromCards = (cards: Card[]) => {
 
 export const convertStringToFace = (face: number) => {
     if (face === 11) {
-        return "J"
+        return "jack"
     }
     if (face == 12) {
-        return "Q"
+        return "queen"
     }
     if (face == 13) {
-        return "K"
+        return "king"
     }
     if (face == 14) {
-        return "A"
+        return "ace"
     }
     return "" + face
+}
+
+export const cardToImageName = (card: Card) => {
+    return `${convertStringToFace(card.face)}_of_${card.suit as string}`
 }
 
 /**
@@ -98,5 +102,5 @@ export const convertStringToFace = (face: number) => {
  * @returns the image url for the card
  */
 export const makeCardImageUrl = (card: Card) => {
-    return `https://deckofcardsapi.com/static/img/${convertStringToFace(card.face)}${card.suit as string}.png`
+    return `/images/cards/${cardToImageName(card)}.png`
 }
