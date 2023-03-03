@@ -1,4 +1,4 @@
-import { createDefaultDeck } from "../../../../../model/card";
+import { createDefaultDeck } from "../../../../../lib/model/card";
 import type { RequestHandler } from "../../../newCardDeck/$types";
 import { json } from '@sveltejs/kit';
 

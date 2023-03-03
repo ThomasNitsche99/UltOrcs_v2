@@ -76,11 +76,27 @@ export const createDeckFromCards = (cards: Card[]) => {
     return deck
 }
 
+export const convertStringToFace = (face: number) => {
+    if (face === 11) {
+        return "J"
+    }
+    if (face == 12) {
+        return "Q"
+    }
+    if (face == 13) {
+        return "K"
+    }
+    if (face == 14) {
+        return "A"
+    }
+    return "" + face
+}
+
 /**
  * makeCardImageUrl
  * @param card the card
  * @returns the image url for the card
  */
-export const makeCardImageUrl = async (card: Card) => {
-    return `https://deckofcardsapi.com/static/img/${card.face}${card.suit as string}.png`
+export const makeCardImageUrl = (card: Card) => {
+    return `https://deckofcardsapi.com/static/img/${convertStringToFace(card.face)}${card.suit as string}.png`
 }

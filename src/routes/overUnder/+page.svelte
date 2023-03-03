@@ -44,7 +44,9 @@
 
 <div class="flex flex-col justify-center items-center">
 	<!-- heading -->
-	<div class="my-0 text-3xl text-center mb-2"><Heading tag="h1" class="text-blue-50 drop-shadow-2xl">Over eller under</Heading></div>
+	<div class="my-0 text-3xl text-center mb-2">
+		<Heading tag="h1" class="text-blue-50 drop-shadow-2xl">Over eller under</Heading>
+	</div>
 	<Hr class="mx-auto md:my-2" width="w-48" height="h-1" />
 	<!-- grid div -->
 	<div class="text-center text-3xl mb-9">
@@ -70,10 +72,28 @@
 	<!-- buttons -->
 	<div class="flex flex-row justify-evenly items-center my-5 w-1/3">
 		{#if gameFinished}
-			<Button href="/overUnder" target="_self" color='red' size="lg" class="border border-2 border-black"> Replay</Button>
+			<Button
+				href="/overUnder"
+				target="_self"
+				color="red"
+				size="lg"
+				class="border border-2 border-black"
+			>
+				Replay</Button
+			>
 		{:else}
-			<Button color="red" on:click={() => update('over')} size="lg" class="border border-2 border-black">Over</Button>
-			<Button color="red" on:click={() => update('under')} size="lg" class="border border-2 border-black">Under</Button>
+			<Button
+				color="red"
+				on:click={() => update('over')}
+				size="lg"
+				class="border border-2 border-black">Over</Button
+			>
+			<Button
+				color="red"
+				on:click={() => update('under')}
+				size="lg"
+				class="border border-2 border-black">Under</Button
+			>
 		{/if}
 	</div>
 
