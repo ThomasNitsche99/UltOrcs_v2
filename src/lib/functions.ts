@@ -1,4 +1,5 @@
-import type { Card, CardDeck, HorseRace, HorseRaceSettings } from './type/Types';
+import type { Card } from './model/card';
+import type { CardDeck, HorseRace, HorseRaceSettings } from './type/Types';
 
 //function for translating card values into strings
 export function cardTranslate(value: string) {
@@ -16,21 +17,21 @@ export function cardTranslate(value: string) {
 }
 
 //judge that decides when game is finished
-export function judge(current: number, last: number, guess: string) {
+export function judge(currentCard: Card, lastCard: Card, guess: string) {
 	if (guess === 'none') {
 		return false;
 	}
 	//if guess er under, skal current være mindre enn last
 	if (guess === 'under') {
 		// true hvis det stemmer
-		if (current < last) {
+		if (currentCard.face > lastCard.face) {
 			return true;
 		} else {
 			return false;
 		}
 		//hvis guess er over, skal current være større enn last
 	} else if (guess === 'over') {
-		if (current > last) {
+		if (currentCard.face < lastCard.face) {
 			return true;
 		} else {
 			return false;

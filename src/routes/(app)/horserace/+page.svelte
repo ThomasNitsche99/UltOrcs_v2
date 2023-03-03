@@ -82,10 +82,13 @@
 		MoveCardUp(suit, horserace);
 		turns++;
 	}
+<<<<<<< HEAD
 
 	$: horseraceBackend = new Horserace(7);
+=======
+>>>>>>> 3090bdc076425157001357320e53ce286ad32e7b
 
-	//opacity 0 gjør kortene blå --> bruk dette!
+	// opacity 0 gjør kortene blå --> bruk dette!
 </script>
 
 {#key turns}
@@ -136,5 +139,13 @@
 				class="bg-blue-500 hover:bg-blue-600">hallo</Button
 			>
 		</div>
+<<<<<<< HEAD
 	</div>
 {/key}
+=======
+	</div> 
+{/key}
+
+
+Horserace
+>>>>>>> 3090bdc076425157001357320e53ce286ad32e7b
