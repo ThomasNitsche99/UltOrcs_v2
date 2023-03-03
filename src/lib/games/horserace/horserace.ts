@@ -73,11 +73,11 @@ export class Horserace {
     }
 
     update = () => {
-        this.rows.reverse()
+        //this.rows.reverse()
         this.drawCardToPile()
         this.updatePlayerPosition()
         this.updateShowingCards()
-        this.rows.reverse()
+        //this.rows.reverse()
     }
 
     topCardInPile = () => {

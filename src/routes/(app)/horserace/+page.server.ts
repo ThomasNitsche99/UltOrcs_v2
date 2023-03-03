@@ -10,18 +10,18 @@ export const load: PageServerLoad = async ({ fetch,locals }) => {
 		throw redirect(302, '/')
 	}
 
-	//retrieve new deck
-	const NewCardDeckRequest = await fetch(
-		'https://www.deckofcardsapi.com/api/deck/new/draw/?count=52'
-	);
+	// //retrieve new deck
+	// const NewCardDeckRequest = await fetch(
+	// 	'https://www.deckofcardsapi.com/api/deck/new/draw/?count=52'
+	// );
     
-	const Cards = (await NewCardDeckRequest.json()) as unknown as CardDeck;
+	// const Cards = (await NewCardDeckRequest.json()) as unknown as CardDeck;
 
-	//funksjon for å hente ut alle aces
-	const Aces = Cards.cards.filter((card) => card.value === 'ACE');
-	const playingCards = randomCards(Cards, 8);
+	// //funksjon for å hente ut alle aces
+	// const Aces = Cards.cards.filter((card) => card.value === 'ACE');
+	// const playingCards = randomCards(Cards, 8);
 
     
 
-	return { Aces, playingCards };
+	// return { Aces, playingCards };
 };
