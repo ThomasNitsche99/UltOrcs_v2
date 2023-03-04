@@ -23,6 +23,7 @@ export class Horserace {
 
     constructor(numerOfRows: number) {
         this.deck.shuffle()
+        this.deck.shuffle()
         this.numberOfRows = numerOfRows
         for (let i = 0; i < this.numberOfRows; i++) {
             this.rows.push({
