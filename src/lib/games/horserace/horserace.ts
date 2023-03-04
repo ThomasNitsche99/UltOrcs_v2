@@ -16,13 +16,20 @@ type Row = {
     card: Card
 }
 
+export type Diagnostic = {
+    timestamp: string,
+    funcName: string,
+    message: string,
+    seen: boolean
+}
+
 export class Horserace {
     deck = createDeckWithoutAce()
     pile: Card[] = []
     players = [new Player(Suit.Clubs), new Player(Suit.Hearts), new Player(Suit.Diamonds), new Player(Suit.Spades)]
     rows: Row[] = []
     numberOfRows = 7
-    diagnostics: string[] = []
+    diagnostics: Diagnostic[] = []
     debug = true
 
     constructor(numerOfRows: number) {
@@ -36,6 +43,10 @@ export class Horserace {
                 card: this.deck.drawCard()!
             })
         }
+    }
+
+    setDiagnosticsSeen = () => {
+        this.diagnostics.forEach(diag => diag.seen = true)
     }
 
     drawCardToPile = () => {
@@ -108,6 +119,7 @@ export class Horserace {
     }
 
     update = () => {
+        this.setDiagnosticsSeen()
         this.drawCardToPile()
         this.updatePlayerPosition()
         this.updateShowingCards()
@@ -120,7 +132,14 @@ export class Horserace {
 
     report = (func: string, message: string) => {
         if (this.debug) {
-            this.diagnostics.push(`[${currentTimeString()}] ${func}: ${message}`)
+            this.diagnostics.push(
+                {
+                    funcName: func,
+                    message: message,
+                    timestamp: currentTimeString(),
+                    seen: false
+                }
+            )
         }
     }
 }

@@ -21,14 +21,25 @@
 
 	const rows = [-1, 0, 1, 2, 3, 4, 5, 6, 7];
 	rows.reverse();
+
+	const diagnostics = horseraceBackend.diagnostics;
 </script>
 
 {#key turns}
-	<div class="absolute left-20 max-h-48 overflow-scroll">
-		{#each horseraceBackend.diagnostics.map((e) => e).reverse() as report}
-			<p class="text-xs w-120 bg-slate-400">{report}</p>
-		{/each}
-	</div>
+	{#if diagnostics.length > 0}
+		<div
+			class="absolute left-20 max-h-48 overflow-scroll text-yellow-300 p-3 bg-slate-800"
+			lang="ts"
+		>
+			<h2 class="text-white">History</h2>
+			{#each diagnostics.map((e) => e).reverse() as report}
+				<p class={`text-xs w-120  text-${report.seen ? 'white' : 'yellow-300'}`}>
+					{`[${report.timestamp}] ${report.message}`}
+				</p>
+			{/each}
+		</div>
+	{/if}
+
 	<div class="flex justify-center items-center">
 		<div class="h-[650px]  w-4/5 p-8">
 			{#each rows as row}
