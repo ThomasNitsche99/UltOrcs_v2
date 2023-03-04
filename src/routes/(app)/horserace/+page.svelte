@@ -53,7 +53,7 @@
 								src={horseraceBackend.rows[row].showUpSide
 									? makeCardImageUrl(horseraceBackend.rows[row].card)
 									: '/images/cards/pokemon_card_backside.png'}
-								size="h-full w-full"
+								size={`h-full w-full rotate-${horseraceBackend.rows[row].rotated ? 90 : 0}`}
 							/>
 						{/if}
 					</div>

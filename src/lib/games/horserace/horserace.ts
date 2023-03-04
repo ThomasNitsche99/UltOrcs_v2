@@ -1,4 +1,4 @@
-import { Deck, Suit, createDeckWithoutAce, type Card } from "$lib/model/card"
+import { Suit, createDeckWithoutAce, type Card } from "$lib/model/card"
 
 class Player {
     position = -1
@@ -11,6 +11,7 @@ class Player {
 
 type Row = {
     showUpSide: boolean
+    rotated: boolean
     card: Card
 }
 
@@ -28,6 +29,7 @@ export class Horserace {
         for (let i = 0; i < this.numberOfRows; i++) {
             this.rows.push({
                 showUpSide: false,
+                rotated: (i + 1) % 2 == 0, // Every two cards are rotated
                 card: this.deck.drawCard()!
             })
         }
@@ -75,7 +77,11 @@ export class Horserace {
                 this.players.forEach(player => {
                     const reachedTop = player.position >= 7
                     if (!reachedTop && openedCard.suit === player.suit) {
-                        player.position--
+                        if (this.rows[player.position].rotated) {
+                            player.position -= 2
+                        } else {
+                            player.position--
+                        }
                     }
                 })
             }
@@ -83,11 +89,9 @@ export class Horserace {
     }
 
     update = () => {
-        //this.rows.reverse()
         this.drawCardToPile()
         this.updatePlayerPosition()
         this.updateShowingCards()
-        //this.rows.reverse()
     }
 
     topCardInPile = () => {
