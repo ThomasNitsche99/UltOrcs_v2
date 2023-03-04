@@ -21,19 +21,13 @@
 
 	const rows = [-1, 0, 1, 2, 3, 4, 5, 6, 7];
 	rows.reverse();
+
+	console.log(horseraceBackend.rows);
 </script>
 
 {#key turns}
 	<div class="flex justify-center items-center">
 		<div class="h-[650px]  w-4/5 p-8">
-			{#if horseraceBackend.topCardInPile() !== undefined}
-				<div class="h-[10%] flex justify-end items-center m-2 ">
-					<div class=" w-[5.5%] ">
-						<Img src={makeCardImageUrl(horseraceBackend.topCardInPile())} size="h-full w-full" />
-					</div>
-				</div>
-			{/if}
-
 			{#each rows as row}
 				<div class="h-[10%] flex justify-between items-center m-2 ">
 					<div />
@@ -59,13 +53,29 @@
 					</div>
 				</div>
 			{/each}
-			<Button
-				on:click={() => {
-					horseraceBackend.update();
-					turns++;
-				}}
-				class="bg-blue-500 hover:bg-blue-600">hallo</Button
-			>
+
+			<div class="h-[10%] flex justify-end items-center m-2 ">
+				<div class=" w-[5.5%] ">
+					<p>Pile</p>
+					<Img
+						src={horseraceBackend.topCardInPile() === undefined
+							? '/images/cards/no_card.png'
+							: makeCardImageUrl(horseraceBackend.topCardInPile())}
+						size="h-full w-full rotate-90"
+					/>
+				</div>
+				<div class=" w-[5.5%] ml-5">
+					<p>Deck</p>
+					<div
+						on:click={() => {
+							horseraceBackend.update();
+							turns++;
+						}}
+					>
+						<Img src={'/images/cards/pokemon_card_backside.png'} size="h-full w-full" />
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {/key}
