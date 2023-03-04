@@ -1,3 +1,4 @@
+import { shuffleArr } from "$lib/utils/shuffle"
 
 export enum Suit {
     Hearts = "hearts",
@@ -40,7 +41,7 @@ export class Deck {
     }
 
     shuffle = () => {
-        this.cards = this.cards.sort(() => 0.5 - Math.random())
+        shuffleArr(this.cards)
     }
 
     drawCard = () => {
