@@ -7,11 +7,11 @@
 
 <form action="?/register" method="POST" class="w-2/2 md:w-1/2 lg:w-2/6">
 	<div class="mb-6 text-center">
-		<Label for="large-input" class="block mb-2 text-xl">Username</Label>
+		<Label for="large-input" class="block mb-2 text-xl text-white">Username</Label>
 		<Input let:props id="large-input" size="lg" placeholder="Orcname">
 			<input type="text" {...props} name="username" required />
 		</Input>
-		<Label for="large-input" class="block mb-2 mt-6 text-xl">Password</Label>
+		<Label for="large-input" class="block mb-2 mt-6 text-xl text-white">Password</Label>
 		<Input let:props id="large-input" size="lg" placeholder="Orcword">
 			<input type="password" {...props} name="password" required />
 		</Input>
@@ -33,7 +33,7 @@
 	</div>
 	<Button type="submit" size="md" color="red">Register</Button>
 	<div class="mt-4">
-		<p class="text-base dark:text-white font-extrabold mb-4">Have an account? Log In</p>
+		<p class="text-base dark:text-white font-extrabold mb-4 text-white">Have an account? Log In</p>
 		<Button href="/" size="md" color="red">Log In</Button>
 	</div>
 </form>

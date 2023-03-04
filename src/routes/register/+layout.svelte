@@ -2,7 +2,7 @@
 	import { Heading, P, Blockquote } from 'flowbite-svelte';
 </script>
 
-<div class="flex flex-col h-screen  items-center bg-[url('/images/heaven.jpg')] bg-center">
+<div class="flex flex-col h-screen  items-center bg-[url('/images/heaven.jpg')] bg-bottom bg-cover">
 	<div class=" my-[80px] text-center">
 		<Heading tag="h1" class="mb-2" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
 			>Welcome to ultorcs</Heading

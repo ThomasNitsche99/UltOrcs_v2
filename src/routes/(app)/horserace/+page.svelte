@@ -29,8 +29,8 @@
 			<p class="text-xs w-120 bg-slate-400">{report}</p>
 		{/each}
 	</div>
-	<div class="flex justify-center items-center">
-		<div class="h-[650px]  w-4/5 p-8">
+	<div class="flex justify-center items-center bg-tuborg_green h-full w-full">
+		<div class="h-[650px]  w-4/5 p-2">
 			{#each rows as row}
 				<div class="h-[10%] flex justify-between items-center m-2 ">
 					<div />
