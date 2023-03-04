@@ -1,5 +1,14 @@
-# UltOrcs
+<div align="center" >
+<h1>UltOrcs</h1>
+</div>
+<div align="center">
+<img src="static/images/cards/ace_of_spades.png" width=50/>
+<img src="static/images/cards/ace_of_diamonds.png" width=50/>
+<img src="static/images/cards/ace_of_clubs.png" width=50/>
+<img src="static/images/cards/ace_of_hearts.png" width=50/>
+</div>
 
+## Ultimate drinking game
 Everything you need to have a gutta-party.
 
 ## Developing
