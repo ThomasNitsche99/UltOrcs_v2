@@ -20,5 +20,6 @@
 		</form>
 	{/if}
 </nav> -->
-
-<slot />
+<div class="h-screen bg-tuborg_green">
+	<slot />
+</div>

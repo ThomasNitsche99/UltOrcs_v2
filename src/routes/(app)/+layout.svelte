@@ -3,8 +3,8 @@
 </script>
 
 <Navigation />
-<div class="flex flex-col items-center">
-	<div class="">
+<div class="">
+	<div class="flex justify-center items-center">
 		<slot />
 	</div>
 </div>
