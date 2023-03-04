@@ -88,10 +88,22 @@ export class Horserace {
         }
     }
 
+    clampPlayerPosition = () => {
+        this.players.forEach(player => {
+            if (player.position < -1) {
+                player.position = -1
+            }
+            if (player.position > 7) {
+                player.position = 7;
+            }
+        })
+    }
+
     update = () => {
         this.drawCardToPile()
         this.updatePlayerPosition()
         this.updateShowingCards()
+        this.clampPlayerPosition()
     }
 
     topCardInPile = () => {
