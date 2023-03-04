@@ -2,7 +2,7 @@
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Button } from 'flowbite-svelte';
 </script>
 
-<Navbar let:hidden let:toggle navClass="bg-reg-red text-white">
+<Navbar let:hidden let:toggle navClass="bg-yellow-600 text-white">
 	<NavBrand href="/" class="text-white">
 		<span class="self-center whitespace-nowrap text-3xl font-semibold dark:text-white">Ultorcs</span
 		>

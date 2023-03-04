@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import '../app.postcss';
 </script>
 
 <svelte:head>
-	<title>SvelteKit Auth</title>
+	<title>Ultorcs</title>
 </svelte:head>
 
 <!-- <nav>
@@ -22,6 +21,4 @@
 	{/if}
 </nav> -->
 
-<div class="flex flex-col h-screen bg-tuborg_green">
-	<slot />
-</div>
+<slot />
