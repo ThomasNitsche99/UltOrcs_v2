@@ -69,6 +69,15 @@ export class Horserace {
 
             if (this.rows[i].showUpSide === false) {
                 this.rows[i].showUpSide = true;
+
+                // Make player go down
+                const openedCard = this.rows[i].card
+                this.players.forEach(player => {
+                    const reachedTop = player.position >= 7
+                    if (!reachedTop && openedCard.suit === player.suit) {
+                        player.position--
+                    }
+                })
             }
         }
     }
