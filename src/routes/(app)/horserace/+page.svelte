@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Horserace } from '$lib/games/horserace/horserace';
 	import { createCard, makeCardImageUrl, Suit } from '$lib/model/card';
-	import { Button, Img } from 'flowbite-svelte';
+	import { Img } from 'flowbite-svelte';
 
 	let turns = 0;
 
@@ -24,6 +24,11 @@
 </script>
 
 {#key turns}
+	<div class="absolute left-20 max-h-48 overflow-scroll">
+		{#each horseraceBackend.diagnostics.map((e) => e).reverse() as report}
+			<p class="text-xs w-120 bg-slate-400">{report}</p>
+		{/each}
+	</div>
 	<div class="flex justify-center items-center">
 		<div class="h-[650px]  w-4/5 p-8">
 			{#each rows as row}
@@ -69,6 +74,7 @@
 							horseraceBackend.update();
 							turns++;
 						}}
+						on:keydown
 					>
 						<Img src={'/images/cards/pokemon_card_backside.png'} size="h-full w-full" />
 					</div>

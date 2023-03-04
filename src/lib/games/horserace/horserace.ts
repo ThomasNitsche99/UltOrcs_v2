@@ -1,4 +1,5 @@
-import { Suit, createDeckWithoutAce, type Card } from "$lib/model/card"
+import { Suit, createDeckWithoutAce, type Card, cardToString } from "$lib/model/card"
+import { currentTimeString } from "$lib/utils/time"
 
 class Player {
     position = -1
@@ -21,6 +22,8 @@ export class Horserace {
     players = [new Player(Suit.Clubs), new Player(Suit.Hearts), new Player(Suit.Diamonds), new Player(Suit.Spades)]
     rows: Row[] = []
     numberOfRows = 7
+    diagnostics: string[] = []
+    debug = true
 
     constructor(numerOfRows: number) {
         this.deck.shuffle()
@@ -40,9 +43,11 @@ export class Horserace {
         const card = this.deck.drawCard()
         if (card == null) {
             console.log('TODO: deck is empty')
+            this.report("drawCardToPile", "Deck is empty!")
             return
         }
         this.pile.push(card)
+        this.report("drawCardToPile", `Drawn a ${cardToString(card)}`)
     }
 
     updatePlayerPosition = () => {
@@ -71,6 +76,7 @@ export class Horserace {
 
             if (this.rows[i].showUpSide === false) {
                 this.rows[i].showUpSide = true;
+                this.report("updateShowingCards", `Opened card on row ${i} and got card ${cardToString(this.rows[i].card)}`)
 
                 // Make player go down
                 const openedCard = this.rows[i].card
@@ -79,8 +85,10 @@ export class Horserace {
                     if (!reachedTop && openedCard.suit === player.suit) {
                         if (this.rows[player.position].rotated) {
                             player.position -= 2
+                            this.report("updateShowingCards", `Player ${player.suit} goes down 2 steps`)
                         } else {
                             player.position--
+                            this.report("updateShowingCards", `Player ${player.suit} goes down 1 steps`)
                         }
                     }
                 })
@@ -108,5 +116,11 @@ export class Horserace {
 
     topCardInPile = () => {
         return this.pile.findLast(card => card)
+    }
+
+    report = (func: string, message: string) => {
+        if (this.debug) {
+            this.diagnostics.push(`[${currentTimeString()}] ${func}: ${message}`)
+        }
     }
 }

@@ -96,7 +96,7 @@ export const createDeckFromCards = (cards: Card[]) => {
     return deck
 }
 
-export const convertStringToFace = (face: number) => {
+export const convertFaceToString = (face: number) => {
     if (face === 11) {
         return "jack"
     }
@@ -113,7 +113,7 @@ export const convertStringToFace = (face: number) => {
 }
 
 export const cardToImageName = (card: Card) => {
-    return `${convertStringToFace(card.face)}_of_${card.suit as string}`
+    return `${convertFaceToString(card.face)}_of_${card.suit as string}`
 }
 
 /**
@@ -123,4 +123,8 @@ export const cardToImageName = (card: Card) => {
  */
 export const makeCardImageUrl = (card: Card) => {
     return `/images/cards/${cardToImageName(card)}.png`
+}
+
+export const cardToString = (card: Card) => {
+    return `${convertFaceToString(card.face)} of ${card.suit}`
 }
