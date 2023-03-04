@@ -49,9 +49,9 @@
 	}
 </script>
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center w-full">
 	<!-- heading -->
-	<div class="my-0 text-3xl text-center mb-2">
+	<div class="my-0 text-2xl text-center mb-2 mt-4">
 		<Heading tag="h1" class="text-blue-50 drop-shadow-2xl">Over eller under</Heading>
 	</div>
 	<Hr class="mx-auto md:my-2" width="w-48" height="h-1" />
@@ -59,22 +59,22 @@
 	<div class="text-center text-3xl mb-9">
 		<Heading tag="h4">
 			{#if index > 5 && index <= 9}
-				<span class="text-2xl text-orange-600">Nærmer seg ult: </span>
+				<span class="text-base text-orange-600">Nærmer seg ult: </span>
 			{:else if index > 9 && index <= 12}
-				<span class="text-2xl text-purple-600-600">ULT: </span>
+				<span class="text-base text-purple-600-600">ULT: </span>
 			{:else if index > 12}
-				<span class="text-2xl text-red-600">I helvette da: </span>
+				<span class="text-base text-red-600">I helvette da: </span>
 			{:else}
-				<span class="text-2xl text-gray-800">Rookies: </span>
+				<span class="text-base text-gray-800">Rookies: </span>
 			{/if}
 			<span class="text-3xl text-white drop-shadow-lg">{index}</span>
 			slurker</Heading
 		>
 	</div>
 	<!-- image -->
-	<div class="container flex justify-center w-3/4 ">
+	<div class="flex justify-center w-1/2 h-full">
 		{#if playingCard !== null}
-			<Img src={makeCardImageUrl(playingCard)} size="lg" class="" />
+			<Img src={makeCardImageUrl(playingCard)} />
 		{/if}
 	</div>
 
