@@ -39,9 +39,9 @@
 			{/each}
 		</div>
 	{/if}
-
 	<div class="flex justify-center items-center">
 		<div class="h-[650px]  w-4/5 p-8">
+
 			{#each rows as row}
 				<div class="h-[10%] flex justify-between items-center m-2 ">
 					<div />

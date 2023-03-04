@@ -12,7 +12,7 @@ const config = {
 				'reg-red': '#FF3333'
 			},
 			backgroundImage: {
-				poker: "url('/images/bg_crop.jpg')"
+				heaven: "url('/images/heaven.jpg')",
 			}
 		},
 		container: {

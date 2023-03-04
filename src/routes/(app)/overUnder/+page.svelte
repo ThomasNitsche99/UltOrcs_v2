@@ -2,7 +2,7 @@
 	import { Img, Hr, Heading } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { Button, Modal } from 'flowbite-svelte';
-	import { cardTranslate, judge, lastValueInDeck, nextCard } from '$lib/functions';
+	import { judge } from '$lib/functions';
 	import { ArrowDownCircle } from 'svelte-heros-v2';
 	import { createDefaultDeck, makeCardImageUrl, type Card } from '$lib/model/card';
 
@@ -49,14 +49,9 @@
 	}
 </script>
 
-<div class="flex flex-col justify-center items-center">
-	<!-- heading -->
-	<div class="my-0 text-3xl text-center mb-2">
-		<Heading tag="h1" class="text-blue-50 drop-shadow-2xl">Over eller under</Heading>
-	</div>
-	<Hr class="mx-auto md:my-2" width="w-48" height="h-1" />
+<div class="flex flex-col justify-center items-center w-full">
 	<!-- grid div -->
-	<div class="text-center text-3xl mb-9">
+	<div class="text-center text-3xl my-9 ">
 		<Heading tag="h4">
 			{#if index > 5 && index <= 9}
 				<span class="text-2xl text-orange-600">Nærmer seg ult: </span>
@@ -65,16 +60,16 @@
 			{:else if index > 12}
 				<span class="text-2xl text-red-600">I helvette da: </span>
 			{:else}
-				<span class="text-2xl text-gray-800">Rookies: </span>
+				<span class="text-2xl  text-gray-800">Rookies: </span>
 			{/if}
 			<span class="text-3xl text-white drop-shadow-lg">{index}</span>
 			slurker</Heading
 		>
 	</div>
 	<!-- image -->
-	<div class="container flex justify-center w-3/4 ">
+	<div class="flex justify-center w-1/3 md:w-1/4 lg:w-1/6">
 		{#if playingCard !== null}
-			<Img src={makeCardImageUrl(playingCard)} size="lg" class="" />
+			<Img src={makeCardImageUrl(playingCard)} />
 		{/if}
 	</div>
 
