@@ -1,4 +1,6 @@
 
+// Shuffle algorithms
+
 const fisherYatesAlgorithm = <T>(arr: T[]) => {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -7,7 +9,6 @@ const fisherYatesAlgorithm = <T>(arr: T[]) => {
         arr[j] = temp;
     }
 }
-
 
 export const shuffleArr = <T>(arr: T[]) => {
     fisherYatesAlgorithm(arr)
