@@ -87,7 +87,12 @@
 						}}
 						on:keydown
 					>
-						<Img src={'/images/cards/pokemon_card_backside.png'} size="h-full w-full" />
+						<Img
+							src={horseraceBackend.deck.isEmpty()
+								? '/images/cards/no_card.png'
+								: '/images/cards/pokemon_card_backside.png'}
+							size="h-full w-full"
+						/>
 					</div>
 				</div>
 			</div>
