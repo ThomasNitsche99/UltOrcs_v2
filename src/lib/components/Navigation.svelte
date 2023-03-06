@@ -18,9 +18,9 @@
 
 {#key key}
 	<!-- navbar -->
-	<div class=" w-full h-[80px] bg-reg-red flex flex-row items-center ">
+	<div class=" w-full h-[80px] bg-reg-red flex flex-row items-center">
 		<!-- logo -->
-		<div class="flex flex-row items-center h-full  w-1/4">
+		<div class="flex flex-row items-center h-full w-1/6 ">
 			<!-- logo -->
 			<div class="w-[80px] h-full">
 				<a href="/" on:click={() => changeActive('')}>
@@ -29,14 +29,14 @@
 			</div>
 			<!-- tekst -->
 			<div class=" ml-4">
-				<a href="/" on:click={() => changeActive('')}>
-					<P size="3xl" weight="black" color="text-white" italic upperClass="text-white">ULTORCS</P>
+				<a href="/" on:click={() => changeActive('')} class="text-2xl font-black italic text-white">
+					ULTORCS
 				</a>
 			</div>
 		</div>
 
 		<!-- routes -->
-		<div class="flex flex-row  h-full items-center w-3/6 justify-evenly">
+		<div class="flex flex-row  h-full items-center justify-evenly w-2/3">
 			{#each navbar.items as item}
 				<div>
 					{#if navbar.getActiveItem() === item.value}
@@ -57,17 +57,23 @@
 		</div>
 
 		<!-- buttons -->
-		<div class="h-full w-1/5 flex-1 items-center flex justify-center">
+		<div class="h-full items-center flex justify-center flex-1">
 			<Toolbar color="red" class="bg-reg-red border-none">
-				<ToolbarButton class="text-black"><User solid /></ToolbarButton>
-				<ToolbarButton class="text-black mx-4"><Scale solid /></ToolbarButton>
-				<ToolbarButton class=" text-black"
-					><form action="/logout" method="POST">
-						<button type="submit" class="items-center flex justify-center"
-							><ArrowRightOnRectangle solid /></button
-						>
-					</form>
-				</ToolbarButton>
+				<div >
+					<ToolbarButton class="text-black "><User solid    /></ToolbarButton>
+				</div>
+				<div>
+					<ToolbarButton class="text-black mx-4 "><Scale solid /></ToolbarButton>
+				</div>
+				<div>
+					<ToolbarButton class=" text-black "
+						><form action="/logout" method="POST">
+							<button type="submit" class="items-center flex justify-center"
+								><ArrowRightOnRectangle solid/></button
+							>
+						</form>
+					</ToolbarButton>
+				</div>
 			</Toolbar>
 		</div>
 	</div>

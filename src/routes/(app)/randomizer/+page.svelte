@@ -85,11 +85,11 @@
 
 <!-- {#key randomizer.players} -->
 <!-- mother div -->
-<div class=" w-full flex items-center justify-center border">
+<div class=" w-full flex items-center justify-center ">
 	<!-- cover -->
-	<div class=" w-full md:w-3/4 flex flex-col justify-center items-center border">
+	<div class=" w-full md:w-3/4 flex flex-col justify-center items-center ">
 		<!-- input field -->
-		<div class="w-[90%] mx-10 h-[125px] border md:w-1/2 ">
+		<div class="w-[90%] mx-10 h-[125px] md:w-1/2 ">
 			{#if played === false}
 				<div class="pt-8">
 					<Label for="input-addon" class="mb-2 text-center text-xl text-white"

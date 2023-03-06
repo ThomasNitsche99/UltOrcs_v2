@@ -81,7 +81,7 @@
 				target="_self"
 				color="red"
 				size="lg"
-				class="border border-2 border-black"
+				class=" border-black"
 			>
 				Replay</Button
 			>
@@ -90,13 +90,13 @@
 				color="red"
 				on:click={() => update('over')}
 				size="lg"
-				class="border border-2 border-black">Over</Button
+				class=" border-black">Over</Button
 			>
 			<Button
 				color="red"
 				on:click={() => update('under')}
 				size="lg"
-				class="border border-2 border-black">Under</Button
+				class=" border-black">Under</Button
 			>
 		{/if}
 	</div>
