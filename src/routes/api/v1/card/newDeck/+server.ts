@@ -1,8 +1,7 @@
 import { createDefaultDeck } from "../../../../../lib/model/card";
-import type { RequestHandler } from "../../../newCardDeck/$types";
-import { json } from '@sveltejs/kit';
+import { json, type RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ fetch }) => {
+export const GET: RequestHandler = async () => {
     const deck = createDefaultDeck()
     deck.shuffle()
     return json(deck)

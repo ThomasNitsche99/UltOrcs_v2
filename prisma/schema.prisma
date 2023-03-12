@@ -14,9 +14,8 @@ model User {
   passwordHash  String
   userAuthToken String @unique
   //basic info
-  age           Int @default(0)
+  age           Int    @default(0)
   quote         String @default("")
-
 
   //friends
   friends          User[]   @relation("UserFriends")
@@ -28,10 +27,21 @@ model User {
 
   role   Roles @relation(fields: [roleId], references: [id])
   roleId Int
+
+  friendRequestsSent     FriendRequest[] @relation("friendRequestFromUser")
+  friendRequestsReceived FriendRequest[] @relation("friendRequestToUser")
 }
 
 model Roles {
   id   Int    @id @default(autoincrement())
   name String @unique
   User User[]
+}
+
+model FriendRequest {
+  id         String @id @default(uuid())
+  fromUser   User   @relation("friendRequestFromUser", fields: [fromUserId], references: [id])
+  toUser     User   @relation("friendRequestToUser", fields: [toUserId], references: [id])
+  fromUserId String
+  toUserId   String
 }
