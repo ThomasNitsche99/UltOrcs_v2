@@ -1,3 +1,4 @@
+import type { Roles } from 'src/routes/register/+page.server';
 import type { SvelteComponent } from 'svelte';
 
 export interface ActivityType {
@@ -322,4 +323,16 @@ export type CardDeck= {
 	cardList: Card[],
 	fucker: Card|null,
 	fuckerUsed: boolean,
+  }
+
+  export enum Roles {
+	ADMIN = 'ADMIN',
+	USER = 'USER',
+  }
+
+  export type User = {
+	username: string, 
+	role: string;
+	age: number, 
+	quote: string
   }

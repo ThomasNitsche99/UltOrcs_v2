@@ -6,10 +6,7 @@ import { prisma } from '$lib/database'
 
 // using an enum for user roles to avoid typos
 // if you're not using TypeScript use an object
-enum Roles {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-}
+
 
 export const load: PageServerLoad = async ({ locals }) => {
   // redirect user if logged in
@@ -40,12 +37,21 @@ const register: Action = async ({ request }) => {
     return fail(400, { user: true })
   }
 
+  enum Roles {
+    edru = 'EDRU',
+    roligFyll = 'ROLIG FYLL',
+    brisen = 'BRISEN',
+    full  = 'FULL',
+    kanakas = 'KANAKAS',
+    hentaiDrita = 'HENTAI DRITA'
+    }
+
   await prisma.user.create({
     data: {
       username,
       passwordHash: await bcrypt.hash(password, 10),
       userAuthToken: crypto.randomUUID(),
-      role: { connect: { name: Roles.USER } },
+      role: { connect: { name: Roles.edru } },
     },
   })
 

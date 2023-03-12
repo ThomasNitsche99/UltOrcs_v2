@@ -1,6 +1,9 @@
-<script>
+<script lang="ts">
 	import { Button, Card, Img } from 'flowbite-svelte';
 	import { Heading, Blockquote } from 'flowbite-svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData; 
 </script>
 
 <!-- Mother div -->

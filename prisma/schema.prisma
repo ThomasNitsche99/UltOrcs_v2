@@ -9,12 +9,22 @@ datasource db {
 
 model User {
   id            String @id @default(uuid())
+  //credentials
   username      String @unique
   passwordHash  String
   userAuthToken String @unique
+  //basic info
+  age           Int @default(0)
+  quote         String @default("")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  //friends
+  friends          User[]   @relation("UserFriends")
+  // This second "side" of the UserFriends relation exists solely 
+  // to satisfy prisma's requirements; we won't access it directly.
+  symmetricFriends User[]   @relation("UserFriends")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   role   Roles @relation(fields: [roleId], references: [id])
   roleId Int

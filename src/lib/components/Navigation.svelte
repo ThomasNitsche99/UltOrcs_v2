@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { NavbarData, NavbarItem } from '$lib/model/navbaritems';
 	import { Img, P, Toolbar, ToolbarButton } from 'flowbite-svelte';
 	import { ArrowRightOnRectangle, Scale, User } from 'svelte-heros-v2';
@@ -60,7 +61,7 @@
 		<div class="h-full items-center flex justify-center flex-1">
 			<Toolbar color="red" class="bg-reg-red border-none">
 				<div >
-					<ToolbarButton class="text-black "><User solid    /></ToolbarButton>
+					<ToolbarButton class="text-black" on:click={()=>goto('/profile')}><User solid    /></ToolbarButton>
 				</div>
 				<div>
 					<ToolbarButton class="text-black mx-4 "><Scale solid /></ToolbarButton>
@@ -69,7 +70,7 @@
 					<ToolbarButton class=" text-black "
 						><form action="/logout" method="POST">
 							<button type="submit" class="items-center flex justify-center"
-								><ArrowRightOnRectangle solid/></button
+								><ArrowRightOnRectangle solid /></button
 							>
 						</form>
 					</ToolbarButton>
