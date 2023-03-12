@@ -3,6 +3,7 @@ import type { RequestHandler } from "./$types";
 import { prisma } from "$lib/database";
 import type { User } from "@prisma/client";
 
+//Fetch the friend list of the user
 export const GET: RequestHandler = async ({ locals }) => {
     const user = await prisma.user.findFirst({
         where: {
@@ -15,6 +16,5 @@ export const GET: RequestHandler = async ({ locals }) => {
     }
 
     // TODO: Get firends list
-
     return json("NOT IMPLEMENTED");
 }

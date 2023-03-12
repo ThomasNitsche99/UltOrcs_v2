@@ -3,6 +3,7 @@ import type { RequestHandler } from "../$types";
 import type { PutFriendRequestAccept } from "$lib/model/friendrequest";
 import { prisma } from "$lib/database";
 
+//PUT accept a friend request
 export const PUT: RequestHandler = async ({ request }) => {
     const friendRequestAccept: PutFriendRequestAccept = await request.json();
 

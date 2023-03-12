@@ -4,6 +4,7 @@ import { prisma } from "$lib/database";
 import type { User } from "@prisma/client";
 import type { PostFriendRequest } from "$lib/model/friendrequest";
 
+//GET friend requests
 export const GET: RequestHandler = async ({ locals }) => {
     // Get current user
     const user = await prisma.user.findFirst({
@@ -34,6 +35,7 @@ export const GET: RequestHandler = async ({ locals }) => {
     return json(friendRequests)
 }
 
+//POST a friend request
 export const POST: RequestHandler = async ({ request }) => {
     // Get current user
     const friendRequest: PostFriendRequest = await request.json()
