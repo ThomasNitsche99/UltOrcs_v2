@@ -60,17 +60,19 @@
 		<!-- buttons -->
 		<div class="h-full items-center flex justify-center flex-1">
 			<Toolbar color="red" class="bg-reg-red border-none">
-				<div >
-					<ToolbarButton class="text-black" on:click={()=>goto('/profile')}><User solid    /></ToolbarButton>
+				<div>
+					<ToolbarButton class="text-white" on:click={() => goto('/profile')}
+						><User solid strokeWidth={'2'} /></ToolbarButton
+					>
 				</div>
 				<div>
-					<ToolbarButton class="text-black mx-4 "><Scale solid /></ToolbarButton>
+					<ToolbarButton class="text-white mx-4 "><Scale solid strokeWidth={'2'} /></ToolbarButton>
 				</div>
 				<div>
-					<ToolbarButton class=" text-black "
+					<ToolbarButton class=" text-white "
 						><form action="/logout" method="POST">
 							<button type="submit" class="items-center flex justify-center"
-								><ArrowRightOnRectangle solid /></button
+								><ArrowRightOnRectangle strokeWidth={'2'} /></button
 							>
 						</form>
 					</ToolbarButton>
