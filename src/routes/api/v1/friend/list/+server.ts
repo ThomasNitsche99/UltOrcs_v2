@@ -5,9 +5,11 @@ import type { User } from "@prisma/client";
 
 //Fetch the friend list of the user
 export const GET: RequestHandler = async ({ locals }) => {
-    const user = await prisma.user.findFirst({
+    // TODO: Check if logged in
+
+    const user = await prisma.user.findFirst({  
         where: {
-            username: (locals as { user: User }).user.username
+            username: (locals as { user: any}).user.username
         }
     })
 
@@ -16,5 +18,5 @@ export const GET: RequestHandler = async ({ locals }) => {
     }
 
     // TODO: Get firends list
-    return json("NOT IMPLEMENTED");
+    return json(await prisma.friendship.findMany());
 }
