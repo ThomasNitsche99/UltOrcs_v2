@@ -2,21 +2,20 @@ import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import { prisma } from "$lib/database";
 import type { User } from "@prisma/client";
+import { error505 } from "$lib/utils/error";
 
-//Fetch the friend list of the user
+// This function returns a list of all friendships for the logged in user
+// It uses the $types.ts file to define the type of the RequestHandler
 export const GET: RequestHandler = async ({ locals }) => {
-    // TODO: Check if logged in
-
-    const user = await prisma.user.findFirst({  
-        where: {
-            username: (locals as { user: any}).user.username
-        }
-    })
-
-    if (user === null) {
-        return new Response(JSON.stringify({ error: "User does not exist" }), { status: 500 })
+    // TODO: When locals have types defined in $types.ts, remove this
+    const user = (locals as { user: User }).user;
+    if (user === undefined) {
+        return error505("User is not logged in");
     }
 
-    // TODO: Get firends list
-    return json(await prisma.friendship.findMany());
+    return json(await prisma.friendship.findMany({
+        where: {
+            userId: user.id
+        }
+    }));
 }
