@@ -27,6 +27,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     }
   }
+  console.log(event.locals.user);
   // load page as normal
   return await resolve(event)
 }

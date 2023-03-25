@@ -1,16 +1,5 @@
 //function for validating edit form
 
-//validate name
-export function validateName(name: string) {
-	if (typeof name !== 'string') {
-		return { error: true, message: 'Navn må være bokstaver' };
-	} else if (name.length < 2) {
-		return { error: true,message: 'Navnet må være lengre ' };
-	} else {
-		return {error: false, name: name}
-	}
-}
-
 export function validateQuote(quote: string) {
 	if (typeof quote !== 'string') {
 		return {error: true, message: 'quote må være en streng' };
