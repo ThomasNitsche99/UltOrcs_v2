@@ -1,7 +1,7 @@
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "../$types";
 import type { PutFriendRequestAccept } from "$lib/model/friendrequest";
-import { prisma } from "$lib/database";
+import { prisma } from "$lib/server/database";
 
 //PUT accept a friend request
 export const PUT: RequestHandler = async ({ request }) => {

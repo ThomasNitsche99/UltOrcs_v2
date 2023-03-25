@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { prisma } from '$lib/database'
+import { prisma } from '$lib/server/database'
 import { fail,redirect,  type Action, type Actions } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
@@ -11,6 +11,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 }
 const login: Action = async ({ cookies, request }) => {
   const data = await request.formData()
+  console.log(data.entries().next().value)
+  data.forEach((value, key) => console.log(value, key))
   const username = data.get('username')
   const password = data.get('password')
 

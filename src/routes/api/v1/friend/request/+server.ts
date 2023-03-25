@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { prisma } from "$lib/database";
+import { prisma } from "$lib/server/database";
 import type { User } from "@prisma/client";
 import type { PostFriendRequest } from "$lib/model/friendrequest";
 
