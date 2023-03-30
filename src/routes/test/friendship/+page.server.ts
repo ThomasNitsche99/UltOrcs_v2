@@ -69,7 +69,7 @@ export const load: PageServerLoad = async ({ locals }) => {
         }
     })
 
-    const allUsers = await prisma.user.findMany()
+    const allUsers = (await prisma.user.findMany()).filter(u => u.id !== user.id && !friends.find(f => f.friendId === u.id))
 
     return {
         user,

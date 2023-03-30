@@ -1,5 +1,6 @@
 import { prisma } from "$lib/database";
 import { error505 } from "$lib/utils/error";
+import type { User } from "@prisma/client";
 import type { RequestHandler } from "@sveltejs/kit";
 import { json } from "@sveltejs/kit";
 
@@ -9,10 +10,12 @@ export type DeleteFriendShipParams = {
 }
 
 export const DELETE: RequestHandler = async ({ locals, request }) => {
+    const userLocals = (locals as { user: User }).user;
+
     // extract param
     const user = await prisma.user.findFirst({
         where: {
-            username: locals.user.username
+            username: userLocals.username
         }
     })
 
@@ -30,22 +33,22 @@ export const DELETE: RequestHandler = async ({ locals, request }) => {
 
     const userId = user.id;
 
-    const friendship = await prisma.friendship.findFirst({
-        where: {
-            userId,
-            friendId
-        }
-    })
+    const pairs = [{ userId, friendId }, { userId: friendId, friendId: userId }]
+    for (const { userId, friendId } of pairs) {
+        const friendship = await prisma.friendship.findFirst({
+            where: {
+                userId,
+                friendId
+            }
+        })
 
-    if (friendship === null) {
-        return json({ message: "Friendship not found" });
+        if (friendship !== null) {
+            await prisma.friendship.delete({
+                where: {
+                    id: friendship.id
+                }
+            })
+        }
     }
-
-    await prisma.friendship.delete({
-        where: {
-            id: friendship.id
-        }
-    })
-
     return json({ message: "Deleted friendship" });
 }

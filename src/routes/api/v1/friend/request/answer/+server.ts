@@ -2,9 +2,20 @@ import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "../$types";
 import type { PutFriendRequestAccept } from "$lib/model/friendrequest";
 import { prisma } from "$lib/database";
+import type { User } from "@prisma/client";
 
 //PUT accept a friend request
-export const PUT: RequestHandler = async ({ request }) => {
+export const PUT: RequestHandler = async ({ request, locals }) => {
+    const userLocals = (locals as { user: User }).user;
+    const user = await prisma.user.findFirst({
+        where: {
+            username: userLocals.username
+        }
+    })
+    if (user === null) {
+        return new Response(JSON.stringify({ error: "User does not exist" }), { status: 500 })
+    }
+
     const friendRequestAccept: PutFriendRequestAccept = await request.json();
 
     if (friendRequestAccept.friendRequestId === undefined) {
@@ -16,7 +27,19 @@ export const PUT: RequestHandler = async ({ request }) => {
         return new Response(JSON.stringify({ error: `FriendRequest does not exist` }), { status: 500 })
     }
 
-    // TODO: Add users to each others friend list
+    await prisma.friendship.create({
+        data: {
+            userId: user.id,
+            friendId: friendRequest.fromUserId
+        }
+    })
+    await prisma.friendship.create({
+        data: {
+            userId: friendRequest.fromUserId,
+            friendId: user.id
+        }
+    })
+
 
     const response = await prisma.friendRequest.delete({
         where: {
