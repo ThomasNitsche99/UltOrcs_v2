@@ -1,4 +1,4 @@
-import type { Card } from './model/card';
+import type { Card } from '../model/card';
 
 
 //judge that decides when game is finished

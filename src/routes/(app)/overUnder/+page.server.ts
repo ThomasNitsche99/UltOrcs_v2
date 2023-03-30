@@ -1,5 +1,4 @@
-import type { CardDeck, NewCardDeck } from '$lib/type/Types';
-import { error, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 //fetches card deck

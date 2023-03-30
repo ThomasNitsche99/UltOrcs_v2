@@ -2,7 +2,7 @@ import { fail, redirect } from '@sveltejs/kit'
 import type { Action, Actions, PageServerLoad } from './$types'
 import bcrypt from 'bcrypt'
 
-import { prisma } from '$lib/database'
+import { prisma } from '$lib/server/database'
 
 // using an enum for user roles to avoid typos
 // if you're not using TypeScript use an object

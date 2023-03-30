@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Img, Hr, Heading } from 'flowbite-svelte';
+	import { Img, Heading } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 	import { Button, Modal } from 'flowbite-svelte';
-	import { judge } from '$lib/functions';
+	import { judge } from '$lib/utils/functions';
 	import { ArrowDownCircle } from 'svelte-heros-v2';
 	import { createDefaultDeck, makeCardImageUrl, type Card } from '$lib/model/card';
 

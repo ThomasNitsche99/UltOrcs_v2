@@ -1,10 +1,11 @@
 import type { Handle } from '@sveltejs/kit'
-import { prisma } from '$lib/database'
+import { prisma } from '$lib/server/database'
 
 export const handle: Handle = async ({ event, resolve }) => {
   // get cookies from browser
   const session = event.cookies.get('session')
 
+  //
   if (!session) {
     // if there is no session load page as normal
     return await resolve(event)
@@ -26,6 +27,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     }
   }
+  console.log(event.locals.user);
   // load page as normal
   return await resolve(event)
 }

@@ -1,12 +1,11 @@
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "../$types";
 import type { PutFriendRequestAccept } from "$lib/model/friendrequest";
-import { prisma } from "$lib/database";
-import type { User } from "@prisma/client";
+import { prisma } from "$lib/server/database";
 
 //PUT accept a friend request
 export const PUT: RequestHandler = async ({ request, locals }) => {
-    const userLocals = (locals as { user: User }).user;
+    const userLocals = locals.user;
     const user = await prisma.user.findFirst({
         where: {
             username: userLocals.username

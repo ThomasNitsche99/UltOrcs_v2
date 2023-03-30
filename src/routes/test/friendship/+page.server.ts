@@ -1,4 +1,3 @@
-import { prisma } from "$lib/database";
 import type { User } from "$lib/type/Types";
 import type { FriendRequest, Friendship } from "@prisma/client";
 import { redirect } from "@sveltejs/kit"

@@ -1,6 +1,4 @@
-import { prisma } from "$lib/database";
 import { error505 } from "$lib/utils/error";
-import type { User } from "@prisma/client";
 import type { RequestHandler } from "@sveltejs/kit";
 import { json } from "@sveltejs/kit";
 
@@ -10,7 +8,7 @@ export type DeleteFriendShipParams = {
 }
 
 export const DELETE: RequestHandler = async ({ locals, request }) => {
-    const userLocals = (locals as { user: User }).user;
+    const userLocals = locals.user;
 
     // extract param
     const user = await prisma.user.findFirst({

@@ -1,7 +1,6 @@
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { prisma } from "$lib/database";
-import type { User } from "@prisma/client";
+import { prisma } from "$lib/server/database";
 import type { PostFriendRequest } from "$lib/model/friendrequest";
 import { error505 } from "$lib/utils/error";
 
@@ -10,7 +9,7 @@ export const GET: RequestHandler = async ({ locals }) => {
     // Get current user
     const user = await prisma.user.findFirst({
         where: {
-            username: (locals as { user: User }).user.username
+            username: locals.user.username
         }
     })
 
