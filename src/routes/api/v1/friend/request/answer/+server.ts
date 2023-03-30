@@ -2,9 +2,11 @@ import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "../$types";
 import type { PutFriendRequestAccept } from "$lib/model/friendrequest";
 import { prisma } from "$lib/server/database";
+import { error505 } from "$lib/utils/error";
 
-//PUT accept a friend request
+// PUT accept a friend request
 export const PUT: RequestHandler = async ({ request, locals }) => {
+    // Get current user
     const userLocals = locals.user;
     const user = await prisma.user.findFirst({
         where: {
@@ -12,20 +14,22 @@ export const PUT: RequestHandler = async ({ request, locals }) => {
         }
     })
     if (user === null) {
-        return new Response(JSON.stringify({ error: "User does not exist" }), { status: 500 })
+        return error505("User does not exist")
     }
 
+    // Get friendRequestId from request
     const friendRequestAccept: PutFriendRequestAccept = await request.json();
-
     if (friendRequestAccept.friendRequestId === undefined) {
-        new Response(JSON.stringify({ error: "friendRequestId not defined in body" }), { status: 500 })
+        return error505("friendRequestId not defined in body")
     }
 
+    // Check if friend request exists
     const friendRequest = await prisma.friendRequest.findFirst({ where: { id: friendRequestAccept.friendRequestId } })
     if (friendRequest === null || friendRequest.id !== friendRequestAccept.friendRequestId) {
-        return new Response(JSON.stringify({ error: `FriendRequest does not exist` }), { status: 500 })
+        return error505(`FriendRequest does not exist`)
     }
 
+    // Create synchronous friendship
     await prisma.friendship.create({
         data: {
             userId: user.id,
@@ -39,35 +43,36 @@ export const PUT: RequestHandler = async ({ request, locals }) => {
         }
     })
 
-
-    const response = await prisma.friendRequest.delete({
+    // Delete friend request
+    await prisma.friendRequest.delete({
         where: {
             id: friendRequestAccept.friendRequestId
         }
     })
 
-    return json({ ...response, "_TODO": "DIT NOT ADD FRIEND TO FRIEND LIST. NOT IMPLEMENTED!" });
+    return json("Friend request accepted");
 }
 
+// DELETE decline a friend request
 export const DELETE: RequestHandler = async ({ request }) => {
+    // Get friendRequestId from request
     const friendRequestAccept: PutFriendRequestAccept = await request.json();
-
     if (friendRequestAccept.friendRequestId === undefined) {
         new Response(JSON.stringify({ error: "friendRequestId not defined in body" }), { status: 500 })
     }
 
+    // Check if friend request exists
     const friendRequest = await prisma.friendRequest.findFirst({ where: { id: friendRequestAccept.friendRequestId } })
     if (friendRequest === null || friendRequest.id !== friendRequestAccept.friendRequestId) {
         return new Response(JSON.stringify({ error: `FriendRequest does not exist` }), { status: 500 })
     }
 
-    const response = await prisma.friendRequest.delete({
+    // Delete friend request
+    await prisma.friendRequest.delete({
         where: {
             id: friendRequestAccept.friendRequestId
         }
     })
 
-
-    return json({ ...response, "head": "Friend request declined" });
-
+    return json("Friend request declined");
 }

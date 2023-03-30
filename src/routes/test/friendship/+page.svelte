@@ -3,9 +3,9 @@
 
 	export let data: PageData;
 
-	const { user, friends, friendsUsers, friendRequests, allUsers } = data;
+	const { friends, friendsUsers, friendRequests, allUsers } = data;
 
-	// Join friendRequest.sent with friendRequest.sentUsers
+	// Combine friend requests with their users
 	const sentFriendRequests = friendRequests.sent.map((req) => {
 		const user = friendRequests.sentUsers.find((user) => user.id === req.toUserId);
 
@@ -14,6 +14,8 @@
 			receiver: user
 		};
 	});
+
+	// Combine friend requests with their users
 	const receivedFriendRequests = friendRequests.received.map((req) => {
 		const user = friendRequests.receivedUsers.find((user) => user.id === req.fromUserId);
 
@@ -64,7 +66,7 @@
 									req.then((res) => res.json()).then((res) => {});
 								}}
 							>
-								Remove
+								Remove friend
 							</button>
 						</div>
 					{/each}
@@ -165,9 +167,11 @@
 										body: JSON.stringify(params)
 									});
 
-									req.then((res) => res.json()).then((res) => {
-										console.log(res)
-									});
+									req
+										.then((res) => res.json())
+										.then((res) => {
+											console.log(res);
+										});
 								}}
 							>
 								Accept request
@@ -187,16 +191,17 @@
 										body: JSON.stringify(deleteParams)
 									});
 
-									req.then((res) => res.json()).then((res) => {
-										console.log(res)
-									});
+									req
+										.then((res) => res.json())
+										.then((res) => {
+											console.log(res);
+										});
 								}}
 							>
 								Decline request
 							</button>
 						</div>
 					{/each}
-					
 				{/key}
 			</div>
 		</div>

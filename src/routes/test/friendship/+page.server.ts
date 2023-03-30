@@ -1,27 +1,25 @@
-import type { User } from "$lib/type/Types";
 import type { FriendRequest, Friendship } from "@prisma/client";
 import { redirect } from "@sveltejs/kit"
 import type { PageServerLoad } from "../../$types"
 
 export const load: PageServerLoad = async ({ locals }) => {
     // redirect user if logged in
-
-    const userLocals = (locals as { user: User }).user;
-
+    const userLocals = locals.user;
     if (!userLocals) {
         throw redirect(302, '/')
     }
 
+    // Gets user from database
     const user = await prisma.user.findUnique({
         where: {
             username: userLocals.username
         },
     })
-
     if (!user) {
         throw redirect(302, '/')
     }
 
+    // Gets all friend requests and associated users
     const sent = await prisma.friendRequest.findMany({
         where: {
             fromUserId: user.id,
@@ -34,7 +32,6 @@ export const load: PageServerLoad = async ({ locals }) => {
             }
         }
     })
-
     const received = await prisma.friendRequest.findMany({
         where: {
             toUserId: user.id,
@@ -48,6 +45,7 @@ export const load: PageServerLoad = async ({ locals }) => {
         }
     })
 
+    // Make a superstruct of all friend requests
     const friendRequests = {
         sent,
         sentUsers,
@@ -55,6 +53,7 @@ export const load: PageServerLoad = async ({ locals }) => {
         receivedUsers,
     }
 
+    // Gets all friends and associated users
     const friends = await prisma.friendship.findMany({
         where: {
             userId: user.id,
@@ -68,6 +67,7 @@ export const load: PageServerLoad = async ({ locals }) => {
         }
     })
 
+    // Gets all users that are not friends or the user
     const allUsers = (await prisma.user.findMany()).filter(u => u.id !== user.id && !friends.find(f => f.friendId === u.id))
 
     return {

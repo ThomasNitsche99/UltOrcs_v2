@@ -7,30 +7,28 @@ export type DeleteFriendShipParams = {
     friendId: string;
 }
 
+// This function deletes a friend
 export const DELETE: RequestHandler = async ({ locals, request }) => {
+    // Get current user
     const userLocals = locals.user;
-
-    // extract param
     const user = await prisma.user.findFirst({
         where: {
             username: userLocals.username
         }
     })
-
     if (user === null) {
         return error505("User is not logged in");
     }
 
-
+    // Get friendId from request
     const data = await request.json();
-
     const { friendId } = data as DeleteFriendShipParams;
     if (friendId === undefined) {
         return json({ message: "Missing param friendId" });
     }
 
+    // Delete friendship pairs, one for user and one for the friend since it's a two way relationship
     const userId = user.id;
-
     const pairs = [{ userId, friendId }, { userId: friendId, friendId: userId }]
     for (const { userId, friendId } of pairs) {
         const friendship = await prisma.friendship.findFirst({
@@ -48,5 +46,6 @@ export const DELETE: RequestHandler = async ({ locals, request }) => {
             })
         }
     }
+
     return json({ message: "Deleted friendship" });
 }
