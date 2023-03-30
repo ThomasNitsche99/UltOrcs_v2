@@ -3,6 +3,7 @@ import type { RequestHandler } from "./$types";
 import { prisma } from "$lib/database";
 import type { User } from "@prisma/client";
 import type { PostFriendRequest } from "$lib/model/friendrequest";
+import { error505 } from "$lib/utils/error";
 
 //GET friend requests
 export const GET: RequestHandler = async ({ locals }) => {
@@ -44,8 +45,12 @@ export const POST: RequestHandler = async ({ request }) => {
         return new Response(JSON.stringify({ error: "to or from are undefined in request body" }), { status: 500 })
     }
 
-    const fromUser = await prisma.user.findFirst({ where: { username: friendRequest.from } })
-    const toUser = await prisma.user.findFirst({ where: { username: friendRequest.to } })
+    const fromUser = await prisma.user.findFirst({ where: { id: friendRequest.from } })
+    const toUser = await prisma.user.findFirst({ where: { id: friendRequest.to } })
+
+    if (fromUser === null || toUser === null) {
+        return error505("from or to user does not exist")
+    }
 
     const possibleOldFriendRequest = await prisma.friendRequest.findFirst({
         where: {
@@ -60,15 +65,6 @@ export const POST: RequestHandler = async ({ request }) => {
         return new Response(JSON.stringify({ error: `FriendRequest already exists` }), { status: 500 })
     }
 
-
-    if (fromUser === null || fromUser.username !== friendRequest.from) {
-        return new Response(JSON.stringify({ error: `User ${friendRequest.from} does not exist` }), { status: 500 })
-    }
-
-    if (toUser === null || toUser.username !== friendRequest.to) {
-        return new Response(JSON.stringify({ error: `User ${friendRequest.to} does not exist` }), { status: 500 })
-    }
-
     await prisma.friendRequest.create({
         data: {
             fromUserId: fromUser.id,
@@ -77,4 +73,20 @@ export const POST: RequestHandler = async ({ request }) => {
     })
 
     return json('Add new user request')
+}
+
+export const DELETE: RequestHandler = async ({ request }) => {
+    const friendRequest: {friendRequestId: string} = await request.json()
+
+    if (friendRequest.friendRequestId === undefined) {
+        return error505("friendRequestId is undefined in request body")
+    }
+
+    await prisma.friendRequest.delete({
+        where: {
+            id: friendRequest.friendRequestId
+        }
+    })
+
+    return json('Delete user request')
 }

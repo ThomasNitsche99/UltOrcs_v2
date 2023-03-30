@@ -1,25 +1,26 @@
 <script lang="ts">
-	import type { User } from '@prisma/client';
-	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
-	const e: User[] = [];
-	$: friends = e;
-	$: users = e;
+	const { user, friends, friendsUsers, friendRequests, allUsers } = data;
 
-	onMount(() => {
-		fetch('/api/v1/friend/list')
-			.then((res) => res.json())
-			.then((res) => {
-				friends = res;
-			});
-		fetch('/api/v1/user/list')
-			.then((res) => res.json())
-			.then((res) => {
-				users = res;
-			});
+	// Join friendRequest.sent with friendRequest.sentUsers
+	const sentFriendRequests = friendRequests.sent.map((req) => {
+		const user = friendRequests.sentUsers.find((user) => user.id === req.toUserId);
+
+		return {
+			...req,
+			receiver: user
+		};
+	});
+	const receivedFriendRequests = friendRequests.received.map((req) => {
+		const user = friendRequests.receivedUsers.find((user) => user.id === req.fromUserId);
+
+		return {
+			...req,
+			sender: user
+		};
 	});
 </script>
 
@@ -40,8 +41,8 @@
 			<div class="border p-2 mt-5">
 				<h2 class="text-2xl font-bold dark:text-white">Friend list</h2>
 
-				{#key friends}
-					{#each friends as friend}
+				{#key friendsUsers}
+					{#each friendsUsers as friend}
 						<div class="border p-2 mt-5">
 							<p>User: {friend.username} (age {friend.age})</p>
 							<p>Quote: {friend.quote || 'empty'}</p>
@@ -63,11 +64,8 @@
 									req
 										.then((res) => res.json())
 										.then((res) => {
-											if (res.success) {
-												friends = friends.filter((f) => f.id !== friend.id);
-											}
-										})
-										
+											
+										});
 								}}
 							>
 								Remove
@@ -77,23 +75,80 @@
 				{/key}
 			</div>
 		</div>
+
 		<div>
 			<div class="border p-2 mt-5">
 				<h2 class="text-2xl font-bold dark:text-white">Users list</h2>
-
-				{#key users}
-					{#each users as user}
-						{#if !friends.find((f) => f.id === user.id)}
+				{#key allUsers}
+					{#each allUsers as user}
+						{#if !friends.find((f) => f.id === user.id) && !friendRequests.sent.find((req) => req.toUserId === user.id) && !friendRequests.received.find((req) => req.fromUserId === user.id)}
 							<div class="border p-2 mt-5">
 								<p>User: {user.username} (age {user.age})</p>
 								<button
 									class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-									on:click={() => {}}
+									on:click={() => {
+										const params = {
+											to: user.id,
+											from: data.user.id
+										};
+
+										const req = fetch('/api/v1/friend/request', {
+											method: 'POST',
+											headers: {
+												'Content-Type': 'application/json'
+											},
+											body: JSON.stringify(params)
+										});
+
+										req
+											.then((res) => res.json())
+											.then((res) => {
+											});
+									}}
 								>
-									Add
+									Send friend request
 								</button>
 							</div>
 						{/if}
+					{/each}
+				{/key}
+			</div>
+		</div>
+
+		<div>
+			<div class="border p-2 mt-5">
+				<h2 class="text-2xl font-bold dark:text-white">Friend requests sent</h2>
+				{#key sentFriendRequests}
+					{#each sentFriendRequests as request}
+						<div class="border p-2 mt-5">
+							<p>To: {request.receiver?.username} (age {request.receiver?.age})</p>
+							<button
+								class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+								on:click={() => {
+									const deleteParams = {
+										friendRequestId: request.id
+									};
+
+									const req = fetch('/api/v1/friend/request', {
+										method: 'DELETE',
+										headers: {
+											'Content-Type': 'application/json'
+										},
+										body: JSON.stringify(deleteParams)
+									});
+
+									req
+										.then((res) => res.json())
+										.then((res) => {
+										});
+									req.catch((err) => {
+										console.log(err);
+									});
+								}}
+							>
+								Cancel request
+							</button>
+						</div>
 					{/each}
 				{/key}
 			</div>
