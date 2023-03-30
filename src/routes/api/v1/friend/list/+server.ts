@@ -13,9 +13,19 @@ export const GET: RequestHandler = async ({ locals }) => {
         return error505("User is not logged in");
     }
 
-    return json(await prisma.friendship.findMany({
+    const friendships = await prisma.friendship.findMany({
         where: {
             userId: user.id
         }
-    }));
+    });
+
+    const friendsUsers = await prisma.user.findMany({
+        where: {
+            id: {
+                in: friendships.map(friendship => friendship.friendId)
+            }
+        }
+    });
+
+    return json(friendsUsers);
 }

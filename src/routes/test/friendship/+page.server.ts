@@ -12,21 +12,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 
     if (!user) {
         throw redirect(302, '/')
-    }
-
-    const friends: User = []
-    // TODO: (johan) fetch friends from database
-
-    onMount(async () => {
-        fetch('/api/friend/list')
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res)
-                friends.push(...res);
-            });
-    })
+    }        
 
     return {
-        user,
+        user
     }
 }
