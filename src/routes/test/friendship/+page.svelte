@@ -61,11 +61,7 @@
 										body: JSON.stringify(deleteParams)
 									});
 
-									req
-										.then((res) => res.json())
-										.then((res) => {
-											
-										});
+									req.then((res) => res.json()).then((res) => {});
 								}}
 							>
 								Remove
@@ -100,10 +96,7 @@
 											body: JSON.stringify(params)
 										});
 
-										req
-											.then((res) => res.json())
-											.then((res) => {
-											});
+										req.then((res) => res.json()).then((res) => {});
 									}}
 								>
 									Send friend request
@@ -137,10 +130,7 @@
 										body: JSON.stringify(deleteParams)
 									});
 
-									req
-										.then((res) => res.json())
-										.then((res) => {
-										});
+									req.then((res) => res.json()).then((res) => {});
 									req.catch((err) => {
 										console.log(err);
 									});
