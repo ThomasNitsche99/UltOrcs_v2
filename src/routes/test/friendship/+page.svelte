@@ -143,5 +143,62 @@
 				{/key}
 			</div>
 		</div>
+		<div>
+			<div class="border p-2 mt-5">
+				<h2 class="text-2xl font-bold dark:text-white">Friend requests received</h2>
+				{#key receivedFriendRequests}
+					{#each receivedFriendRequests as request}
+						<div class="border p-2 mt-5">
+							<p>From: {request.sender?.username} (age {request.sender?.age})</p>
+							<button
+								class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+								on:click={() => {
+									const params = {
+										friendRequestId: request.id
+									};
+
+									const req = fetch('/api/v1/friend/request/answer', {
+										method: 'PUT',
+										headers: {
+											'Content-Type': 'application/json'
+										},
+										body: JSON.stringify(params)
+									});
+
+									req.then((res) => res.json()).then((res) => {
+										console.log(res)
+									});
+								}}
+							>
+								Accept request
+							</button>
+							<button
+								class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+								on:click={() => {
+									const deleteParams = {
+										friendRequestId: request.id
+									};
+
+									const req = fetch('/api/v1/friend/request/answer', {
+										method: 'DELETE',
+										headers: {
+											'Content-Type': 'application/json'
+										},
+										body: JSON.stringify(deleteParams)
+									});
+
+									req.then((res) => res.json()).then((res) => {
+										console.log(res)
+									});
+								}}
+							>
+								Decline request
+							</button>
+						</div>
+					{/each}
+					
+				{/key}
+			</div>
+		</div>
 	</div>
 </div>

@@ -26,3 +26,26 @@ export const PUT: RequestHandler = async ({ request }) => {
 
     return json({ ...response, "_TODO": "DIT NOT ADD FRIEND TO FRIEND LIST. NOT IMPLEMENTED!" });
 }
+
+export const DELETE: RequestHandler = async ({ request }) => {
+    const friendRequestAccept: PutFriendRequestAccept = await request.json();
+
+    if (friendRequestAccept.friendRequestId === undefined) {
+        new Response(JSON.stringify({ error: "friendRequestId not defined in body" }), { status: 500 })
+    }
+
+    const friendRequest = await prisma.friendRequest.findFirst({ where: { id: friendRequestAccept.friendRequestId } })
+    if (friendRequest === null || friendRequest.id !== friendRequestAccept.friendRequestId) {
+        return new Response(JSON.stringify({ error: `FriendRequest does not exist` }), { status: 500 })
+    }
+
+    const response = await prisma.friendRequest.delete({
+        where: {
+            id: friendRequestAccept.friendRequestId
+        }
+    })
+
+
+    return json({ ...response, "head": "Friend request declined" });
+
+}
